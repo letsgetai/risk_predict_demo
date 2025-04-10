@@ -27,38 +27,40 @@
 预测客户逾期概率 `P(y=1|x) ∈ [0,1]`
 
 **输出处理建议**：
-```python
-# 模型输出后处理方案
-prob = torch.sigmoid(logits)  # 确保输出在0-1之间
+
+
 🧠 模型架构
 当前最佳结构
 
 超参数建议：
 
-Patch长度: 128
-Hidden size: 64-256 (需验证)
-使用线性层+正则化防止过拟合
+    Patch长度: 128
+    Hidden size: 64-256 (需验证)
+    使用线性层+正则化防止过拟合
 
 
 🔍 实验记录
-采样策略对比
-方法	准确率	召回率	备注
-原始数据	0.633	0.551	Baseline
-欠采样	0.618	0.573	需验证正样本量
-阈值调整	0.590	0.636	最佳平衡
+
+    采样策略对比
+    方法	准确率	召回率	备注
+    原始数据	0.633	0.551	Baseline
+    欠采样	0.618	0.573	需验证正样本量
+    阈值调整	0.590	0.636	最佳平衡
+
+
 NNI超参搜索
 
-
-nnictl create --config config.yaml --port 8080
+    nnictl create --config config.yaml --port 8080
 
 算法对比表：
 
-算法	优点	缺点	安装
-TPE	轻量级贝叶斯优化	忽略参数关联	内置
-SMAC	处理分类变量好	依赖随机森林	pip install nni[SMAC]
-BOHB	组合Hyperband+TPE	计算成本高	内置
-png/image111.png
+    算法	优点	缺点	安装
+    TPE	轻量级贝叶斯优化	忽略参数关联	内置
+    SMAC	处理分类变量好	依赖随机森林	pip install nni[SMAC]
+    BOHB	组合Hyperband+TPE	计算成本高	内置
 
- 验证欠采样后的正样本比例
- 优化patch-based特征提取层
- 测试不同hidden_size的影响
+待解决问题
+
+    验证欠采样后的正样本比例
+    优化patch-based特征提取层
+    测试不同hidden_size的影响
